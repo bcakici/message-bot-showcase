@@ -42,11 +42,59 @@ const Home: NextPage = () => {
 								<div className="flex flex-1">5/5</div>
 								<div className="flex flex-1">It's peeerfect.</div>
 							</div>
+							<div className="flex justify-between">
+								<div className="flex flex-1">Joe</div>
+								<div className="flex flex-1">
+									<a>Mark as completed</a>
+								</div>
+								<div className="flex flex-1">:(</div>
+								<div className="flex flex-1">2/5</div>
+								<div className="flex flex-1">Could be better.</div>
+							</div>
 						</div>
 					</div>
-					<div className="w-screen lg:w-1/3 h-5/6 p-10">
-						<div className="bg-blue-300 text-gray-900 max-w-xl rounded-xl p-10 mx-auto h-full">
-							Messages will be here...
+					<div className="flex flex-col lg:w-1/3 h-5/6">
+						<div className="flex my-10">
+							<a className="text-orange-400 inline-flex items-center ml-4">
+								Run scenario
+								<svg
+									fill="none"
+									stroke="currentColor"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									className="w-4 h-4 ml-2"
+									viewBox="0 0 24 24"
+								>
+									<path d="M5 12h14M12 5l7 7-7 7"></path>
+								</svg>
+							</a>
+						</div>
+						<div className="flex flex-col gap-5 justify-end content-end grow-1 bg-blue-300 text-gray-900 rounded-xl p-10 mx-auto h-full w-full max-w-lg lg:max-w-full">
+							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tr-none place-self-end">
+								Hello
+							</div>
+							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tl-none place-self-start">
+								Hello, how may I help you?
+							</div>
+							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tr-none place-self-end">
+								I want to order a hamburger
+							</div>
+							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tl-none place-self-start">
+								Would you like fries with that?
+							</div>
+							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tr-none place-self-end">
+								No thank you.
+							</div>
+							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tl-none place-self-start">
+								Bot: Would you like to review us out of 5?
+							</div>
+							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tr-none place-self-end">
+								5
+							</div>
+							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tr-none place-self-end">
+								🍔
+							</div>
 						</div>
 					</div>
 				</div>
