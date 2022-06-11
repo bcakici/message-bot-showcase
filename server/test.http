@@ -1,0 +1,7 @@
+### ADD DEBT
+POST http://localhost:3003/receiveMessage
+Content-Type: application/json
+
+{
+	"message": "Text"
+}

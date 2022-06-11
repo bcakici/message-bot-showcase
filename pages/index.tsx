@@ -18,7 +18,20 @@ const Home: NextPage = () => {
 			setScenario((scenario) => {
 				const message = scenario[0];
 				if (message) {
-					setMessages((messages) => [...messages, message]);
+					fetch("http://localhost:3003/receiveMessage", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							customerID: 1,
+							text: message.text,
+							date: new Date().toISOString(),
+							isCustomer: message.isCustomer,
+							isBot: false,
+						}),
+					}),
+						setMessages((messages) => [...messages, message]);
 				} else {
 					clearInterval(interval);
 				}

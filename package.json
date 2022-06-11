@@ -1,28 +1,30 @@
 {
-  "name": "message-bot-showcase",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "classnames": "^2.3.1",
-    "next": "12.1.6",
-    "react": "18.1.0",
-    "react-dom": "18.1.0"
-  },
-  "devDependencies": {
-    "@types/node": "17.0.41",
-    "@types/react": "18.0.12",
-    "@types/react-dom": "18.0.5",
-    "autoprefixer": "^10.4.7",
-    "eslint": "8.17.0",
-    "eslint-config-next": "12.1.6",
-    "postcss": "^8.4.14",
-    "tailwindcss": "^3.1.2",
-    "typescript": "4.7.3"
-  }
+	"name": "message-bot-showcase",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"dev-server": "cd server; pipenv run python3 server.py",
+		"sqlite-cli": "sqlite3 server/db.sqlite"
+	},
+	"dependencies": {
+		"classnames": "^2.3.1",
+		"next": "12.1.6",
+		"react": "18.1.0",
+		"react-dom": "18.1.0"
+	},
+	"devDependencies": {
+		"@types/node": "17.0.41",
+		"@types/react": "18.0.12",
+		"@types/react-dom": "18.0.5",
+		"autoprefixer": "^10.4.7",
+		"eslint": "8.17.0",
+		"eslint-config-next": "12.1.6",
+		"postcss": "^8.4.14",
+		"tailwindcss": "^3.1.2",
+		"typescript": "4.7.3"
+	}
 }
