@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useCallback, useEffect, useState } from "react";
-import MessageView from "../components/MessageView";
+import { useEffect, useState } from "react";
+import MessageBox from "../components/MessageBox";
 import scenarios from "../data/scenarios.json";
 import runScenario from "../hooks/runScenario";
 
@@ -91,7 +91,7 @@ const Home: NextPage = () => {
 								</svg>
 							</a>
 						</div>
-						<MessageView messageBoxID={messageBoxID}></MessageView>
+						<MessageBox messageBoxID={messageBoxID}></MessageBox>
 					</div>
 				</div>
 			</div>

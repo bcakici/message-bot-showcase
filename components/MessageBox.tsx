@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Message } from "../pages";
 import fetchMessageBox from "../hooks/fetchMessageBox";
 
