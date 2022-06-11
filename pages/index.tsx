@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classnames from "classnames";
 
 interface Message {
@@ -10,7 +10,8 @@ interface Message {
 }
 
 const Home: NextPage = () => {
-	const [messages, setMessages] = useState<Message[]>([
+	const [messages, setMessages] = useState<Message[]>([]);
+	const [scenario, setScenario] = useState<Message[]>([
 		{ text: "Hello", isCustomer: true },
 		{ text: "Hello, how may I help you?", isCustomer: false },
 		{ text: "I want to order a hamburger", isCustomer: true },
@@ -20,6 +21,18 @@ const Home: NextPage = () => {
 		{ text: "5", isCustomer: true },
 		{ text: "🍔", isCustomer: true },
 	]);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			const message = scenario[0];
+			setScenario(scenario.slice(1));
+			if (message) {
+				setMessages((messages) => [...messages, message]);
+			}
+		}, 1500);
+		return () => clearInterval(interval);
+	}, [scenario]);
+
 	return (
 		<>
 			<Head>
@@ -90,6 +103,7 @@ const Home: NextPage = () => {
 						<div className="flex flex-col gap-5 justify-end content-end grow-1 bg-blue-300 text-gray-900 rounded-xl p-10 mx-auto h-full w-full max-w-lg lg:max-w-full">
 							{messages.map((message, i) => (
 								<div
+									key={message.text}
 									className={classnames({
 										"space-y-2 p-5 rounded-2xl": true,
 										"bg-yellow-100 rounded-tr-none place-self-end":
