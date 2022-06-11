@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
 import MessageView from "../components/MessageView";
 import scenarios from "../data/scenarios.json";
+import { v4 as uuidv4 } from "uuid";
 
 export interface Message {
 	text: string;
@@ -12,8 +13,13 @@ export interface Message {
 const Home: NextPage = () => {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [scenario, setScenario] = useState<Message[]>(scenarios.hamburger);
+	const [messageBox, setMessageBox] = useState("");
 
 	const runScenario = useCallback(() => {
+		const _messageBox = uuidv4();
+		setMessageBox(_messageBox);
+		let interval: NodeJS.Timer;
+
 		const sendNextMessage = () => {
 			setScenario((scenario) => {
 				const message = scenario[0];
@@ -29,9 +35,10 @@ const Home: NextPage = () => {
 							date: new Date().toISOString(),
 							isCustomer: message.isCustomer,
 							isBot: false,
+							messageBox: _messageBox,
 						}),
-					}),
-						setMessages((messages) => [...messages, message]);
+					});
+					// setMessages((messages) => [...messages, message]);
 				} else {
 					clearInterval(interval);
 				}
@@ -39,7 +46,7 @@ const Home: NextPage = () => {
 			});
 		};
 		sendNextMessage();
-		const interval = setInterval(() => {
+		interval = setInterval(() => {
 			sendNextMessage();
 		}, 1500);
 		return () => clearInterval(interval);
@@ -48,6 +55,34 @@ const Home: NextPage = () => {
 	useEffect(() => {
 		runScenario();
 	}, []);
+
+	useEffect(() => {
+		const fetchMessageBox = () => {
+			if (messageBox !== "") {
+				fetch("http://localhost:3003/messageBox", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						messageBox: messageBox,
+					}),
+				})
+					.then((resp) => {
+						return resp.json();
+					})
+					.then((fetchedMessages) => {
+						setMessages(fetchedMessages as Message[]);
+					});
+			}
+		};
+		fetchMessageBox();
+		const interval = setInterval(() => {
+			fetchMessageBox();
+		}, 750);
+
+		return () => clearInterval(interval);
+	}, [messageBox]);
 
 	return (
 		<>

@@ -11,10 +11,12 @@
 		"sqlite-cli": "sqlite3 server/db.sqlite"
 	},
 	"dependencies": {
+		"@types/uuid": "^8.3.4",
 		"classnames": "^2.3.1",
 		"next": "12.1.6",
 		"react": "18.1.0",
-		"react-dom": "18.1.0"
+		"react-dom": "18.1.0",
+		"uuid": "^8.3.2"
 	},
 	"devDependencies": {
 		"@types/node": "17.0.41",

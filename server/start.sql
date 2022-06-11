@@ -1,6 +1,7 @@
 CREATE TABLE Message (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	customerID INTEGER,
+	messageBox text,
 	text text, 
 	date text, 
 	isCustomer INTEGER, 
