@@ -1,8 +1,25 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { useState } from "react";
+import classnames from "classnames";
+
+interface Message {
+	text: string;
+	isCustomer: boolean;
+}
 
 const Home: NextPage = () => {
+	const [messages, setMessages] = useState<Message[]>([
+		{ text: "Hello", isCustomer: true },
+		{ text: "Hello, how may I help you?", isCustomer: false },
+		{ text: "I want to order a hamburger", isCustomer: true },
+		{ text: "Would you like fries with that?", isCustomer: false },
+		{ text: "No thank you.", isCustomer: true },
+		{ text: "Bot: Would you like to review us out of 5?", isCustomer: false },
+		{ text: "5", isCustomer: true },
+		{ text: "🍔", isCustomer: true },
+	]);
 	return (
 		<>
 			<Head>
@@ -71,30 +88,19 @@ const Home: NextPage = () => {
 							</a>
 						</div>
 						<div className="flex flex-col gap-5 justify-end content-end grow-1 bg-blue-300 text-gray-900 rounded-xl p-10 mx-auto h-full w-full max-w-lg lg:max-w-full">
-							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tr-none place-self-end">
-								Hello
-							</div>
-							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tl-none place-self-start">
-								Hello, how may I help you?
-							</div>
-							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tr-none place-self-end">
-								I want to order a hamburger
-							</div>
-							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tl-none place-self-start">
-								Would you like fries with that?
-							</div>
-							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tr-none place-self-end">
-								No thank you.
-							</div>
-							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tl-none place-self-start">
-								Bot: Would you like to review us out of 5?
-							</div>
-							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tr-none place-self-end">
-								5
-							</div>
-							<div className="space-y-2 bg-white p-5 rounded-2xl rounded-tr-none place-self-end">
-								🍔
-							</div>
+							{messages.map((message, i) => (
+								<div
+									className={classnames({
+										"space-y-2 p-5 rounded-2xl": true,
+										"bg-yellow-100 rounded-tr-none place-self-end":
+											message.isCustomer,
+										"bg-white rounded-tl-none place-self-start":
+											!message.isCustomer,
+									})}
+								>
+									{message.text}
+								</div>
+							))}
 						</div>
 					</div>
 				</div>
