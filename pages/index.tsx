@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import MessageView from "../components/MessageView";
 import scenarios from "../data/scenarios.json";
 
@@ -13,7 +13,7 @@ const Home: NextPage = () => {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [scenario, setScenario] = useState<Message[]>(scenarios.hamburger);
 
-	useEffect(() => {
+	const runScenario = useCallback(() => {
 		const sendNextMessage = () => {
 			setScenario((scenario) => {
 				const message = scenario[0];
@@ -30,6 +30,10 @@ const Home: NextPage = () => {
 			sendNextMessage();
 		}, 1500);
 		return () => clearInterval(interval);
+	}, []);
+
+	useEffect(() => {
+		runScenario();
 	}, []);
 
 	return (
@@ -84,7 +88,14 @@ const Home: NextPage = () => {
 					</div>
 					<div className="flex flex-col lg:w-1/3 h-5/6">
 						<div className="flex my-10">
-							<a className="text-orange-400 inline-flex items-center ml-4">
+							<a
+								className="text-orange-400 inline-flex items-center ml-4"
+								onClick={() => {
+									setMessages([]);
+									setScenario(scenarios.hamburger);
+									runScenario();
+								}}
+							>
 								Run scenario
 								<svg
 									fill="none"
