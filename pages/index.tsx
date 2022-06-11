@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
 import MessageView from "../components/MessageView";
 import scenarios from "../data/scenarios.json";
-import { v4 as uuidv4 } from "uuid";
+import runScenario from "../hooks/runScenario";
 
 export interface Message {
 	text: string;
@@ -12,60 +12,24 @@ export interface Message {
 
 const Home: NextPage = () => {
 	const [messages, setMessages] = useState<Message[]>([]);
-	const [scenario, setScenario] = useState<Message[]>(scenarios.hamburger);
-	const [messageBox, setMessageBox] = useState("");
+	const [messageBoxID, setMessageBoxID] = useState("");
 
-	const runScenario = useCallback(() => {
-		const _messageBox = uuidv4();
-		setMessageBox(_messageBox);
-		let interval: NodeJS.Timer;
+	const runScenarioHook = runScenario(setMessageBoxID);
 
-		const sendNextMessage = () => {
-			setScenario((scenario) => {
-				const message = scenario[0];
-				if (message) {
-					fetch("http://localhost:3003/receiveMessage", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify({
-							customerID: 1,
-							text: message.text,
-							date: new Date().toISOString(),
-							isCustomer: message.isCustomer,
-							isBot: false,
-							messageBox: _messageBox,
-						}),
-					});
-					// setMessages((messages) => [...messages, message]);
-				} else {
-					clearInterval(interval);
-				}
-				return scenario.slice(1);
-			});
-		};
-		sendNextMessage();
-		interval = setInterval(() => {
-			sendNextMessage();
-		}, 1500);
-		return () => clearInterval(interval);
+	useEffect(() => {
+		runScenarioHook(scenarios.hamburger);
 	}, []);
 
 	useEffect(() => {
-		runScenario();
-	}, []);
-
-	useEffect(() => {
-		const fetchMessageBox = () => {
-			if (messageBox !== "") {
+		const fetchMessageBoxID = () => {
+			if (messageBoxID !== "") {
 				fetch("http://localhost:3003/messageBox", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 					},
 					body: JSON.stringify({
-						messageBox: messageBox,
+						messageBox: messageBoxID,
 					}),
 				})
 					.then((resp) => {
@@ -76,13 +40,13 @@ const Home: NextPage = () => {
 					});
 			}
 		};
-		fetchMessageBox();
+		fetchMessageBoxID();
 		const interval = setInterval(() => {
-			fetchMessageBox();
+			fetchMessageBoxID();
 		}, 750);
 
 		return () => clearInterval(interval);
-	}, [messageBox]);
+	}, [messageBoxID]);
 
 	return (
 		<>
@@ -140,8 +104,7 @@ const Home: NextPage = () => {
 								className="text-orange-400 inline-flex items-center ml-4"
 								onClick={() => {
 									setMessages([]);
-									setScenario(scenarios.hamburger);
-									runScenario();
+									runScenarioHook(scenarios.hamburger);
 								}}
 							>
 								Run scenario
