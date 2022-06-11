@@ -1,37 +1,36 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import classnames from "classnames";
+import MessageView from "../components/MessageView";
+import scenarios from "../data/scenarios.json";
 
-interface Message {
+export interface Message {
 	text: string;
 	isCustomer: boolean;
 }
 
 const Home: NextPage = () => {
 	const [messages, setMessages] = useState<Message[]>([]);
-	const [scenario, setScenario] = useState<Message[]>([
-		{ text: "Hello", isCustomer: true },
-		{ text: "Hello, how may I help you?", isCustomer: false },
-		{ text: "I want to order a hamburger", isCustomer: true },
-		{ text: "Would you like fries with that?", isCustomer: false },
-		{ text: "No thank you.", isCustomer: true },
-		{ text: "Bot: Would you like to review us out of 5?", isCustomer: false },
-		{ text: "5", isCustomer: true },
-		{ text: "🍔", isCustomer: true },
-	]);
+	const [scenario, setScenario] = useState<Message[]>(scenarios.hamburger);
 
 	useEffect(() => {
+		const sendNextMessage = () => {
+			setScenario((scenario) => {
+				const message = scenario[0];
+				if (message) {
+					setMessages((messages) => [...messages, message]);
+				} else {
+					clearInterval(interval);
+				}
+				return scenario.slice(1);
+			});
+		};
+		sendNextMessage();
 		const interval = setInterval(() => {
-			const message = scenario[0];
-			setScenario(scenario.slice(1));
-			if (message) {
-				setMessages((messages) => [...messages, message]);
-			}
+			sendNextMessage();
 		}, 1500);
 		return () => clearInterval(interval);
-	}, [scenario]);
+	}, []);
 
 	return (
 		<>
@@ -100,22 +99,7 @@ const Home: NextPage = () => {
 								</svg>
 							</a>
 						</div>
-						<div className="flex flex-col gap-5 justify-end content-end grow-1 bg-blue-300 text-gray-900 rounded-xl p-10 mx-auto h-full w-full max-w-lg lg:max-w-full">
-							{messages.map((message, i) => (
-								<div
-									key={message.text}
-									className={classnames({
-										"space-y-2 p-5 rounded-2xl": true,
-										"bg-yellow-100 rounded-tr-none place-self-end":
-											message.isCustomer,
-										"bg-white rounded-tl-none place-self-start":
-											!message.isCustomer,
-									})}
-								>
-									{message.text}
-								</div>
-							))}
-						</div>
+						<MessageView messages={messages}></MessageView>
 					</div>
 				</div>
 			</div>
