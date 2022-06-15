@@ -20,7 +20,7 @@ export default function useScenario() {
 		message: Message,
 		signal: AbortSignal | undefined
 	) =>
-		fetch("http://localhost:3003/receiveMessage", {
+		fetch("http://localhost:3003/messageListener", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -37,7 +37,7 @@ export default function useScenario() {
 		});
 
 	useQuery(
-		["receiveMessage"],
+		["messageListener"],
 		async ({ queryKey, signal }) => {
 			const message = scenario[0];
 			if (message) {

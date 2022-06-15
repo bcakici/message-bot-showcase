@@ -11,8 +11,8 @@ CORS(app, support_credentials=True)
 def index():
 	return "I am working, don't disturb me."
 
-@app.route("/receiveMessage", methods=['POST'])
-def receiveMessage():
+@app.route("/messageListener", methods=['POST'])
+def messageListener():
 	data = request.get_json()
 
 	con = sqlite3.connect('db.sqlite')	

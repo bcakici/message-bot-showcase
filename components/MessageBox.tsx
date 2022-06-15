@@ -1,14 +1,14 @@
 import classnames from "classnames";
 import { useState } from "react";
 import { Message } from "../pages";
-import fetchMessageBox from "../hooks/fetchMessageBox";
+import useMessageBoxQuery from "../hooks/useMessageBoxQuery";
 
 export interface Properties {
 	messageBoxID: string;
 }
 
 export default function MessageView(props: Properties) {
-	const { data } = fetchMessageBox(props.messageBoxID);
+	const { data } = useMessageBoxQuery(props.messageBoxID);
 
 	return (
 		<div className="flex flex-col gap-5 justify-end content-end grow-1 bg-blue-300 text-gray-900 rounded-xl p-10 mx-auto h-full w-full max-w-lg lg:max-w-full">

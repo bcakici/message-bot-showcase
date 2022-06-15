@@ -13,7 +13,7 @@ export default (messageBoxID: string) => {
 		});
 
 	return useQuery(
-		["messageBoxUseQuery", messageBoxID],
+		["messageBox", messageBoxID],
 		async ({ queryKey }) => {
 			const [key, messageBoxID] = queryKey;
 			const res = await fetchWithConfiguration(messageBoxID);
