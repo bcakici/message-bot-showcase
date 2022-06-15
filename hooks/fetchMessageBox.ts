@@ -5,36 +5,29 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import { Message } from "../pages";
+import { useQuery } from "react-query";
 
-export default (
-	messageBoxID: string,
-	setMessages: Dispatch<SetStateAction<Message[]>>
-) =>
-	useEffect(() => {
-		const fetchMessageBoxID = () => {
-			if (messageBoxID !== "") {
-				fetch("http://localhost:3003/messageBox", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						messageBox: messageBoxID,
-					}),
-				})
-					.then((resp) => {
-						return resp.json();
-					})
-					.then((fetchedMessages) => {
-						setMessages(fetchedMessages as Message[]);
-					});
-			}
-		};
-		fetchMessageBoxID();
-		const interval = setInterval(() => {
-			fetchMessageBoxID();
-		}, 750);
+const fetchWithConfiguration = (messageBoxID: string) =>
+	fetch("http://localhost:3003/messageBox", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			messageBox: messageBoxID,
+		}),
+	});
 
-		return () => clearInterval(interval);
-	}, [messageBoxID]);
+export default (messageBoxID: string) =>
+	useQuery(
+		["messageBoxUseQuery", messageBoxID],
+		async ({ queryKey }) => {
+			const [key, messageBoxID] = queryKey;
+			const res = await fetchWithConfiguration(messageBoxID);
+			const jsonResult = await res.json();
+			return jsonResult;
+		},
+		{
+			refetchInterval: 750,
+		}
+	);

@@ -1,7 +1,8 @@
 ### ADD DEBT
-POST http://localhost:3003/receiveMessage
+POST http://localhost:3003/messageBox
 Content-Type: application/json
 
 {
-	"message": "Text"
+	"messageBox": "9689c298-f6fe-4cd4-a6ad-cfa7ae538e62"
 }
+

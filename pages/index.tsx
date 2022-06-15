@@ -1,22 +1,20 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import MessageBox from "../components/MessageBox";
-import scenarios from "../data/scenarios.json";
-import runScenario from "../hooks/runScenario";
+import useScenario from "../hooks/useScenario";
 
 export interface Message {
 	text: string;
 	isCustomer: boolean;
+	id: number | null;
 }
 
 const Home: NextPage = () => {
-	const [messageBoxID, setMessageBoxID] = useState("");
-
-	const runScenarioHook = runScenario(setMessageBoxID);
+	const { setNewScenario, messageBoxID } = useScenario();
 
 	useEffect(() => {
-		runScenarioHook(scenarios.hamburger);
+		setNewScenario("hamburger");
 	}, []);
 
 	return (
@@ -74,7 +72,7 @@ const Home: NextPage = () => {
 							<a
 								className="text-orange-400 inline-flex items-center ml-4"
 								onClick={() => {
-									runScenarioHook(scenarios.hamburger);
+									setNewScenario("hamburger");
 								}}
 							>
 								Run scenario
