@@ -1,10 +1,10 @@
 from flask import (Flask, jsonify, request)
 from flask_cors import CORS, cross_origin
-from datetime import datetime
-import time
 
 import sqlite3
 import json
+
+from processMessage import processMessage
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
@@ -14,27 +14,7 @@ CORS(app, support_credentials=True)
 def index():
 	return "I am working, don't disturb me."
 
-
-def processMessage(message):
-	if message["isCustomer"] and "thank you".casefold() in message["text"].casefold():
-		time.sleep(0.7)
-		# insert a new data into the database
-		con = sqlite3.connect('db.sqlite')
-		cur = con.cursor()
-
-		reviewQuestion = {
-			"text": "Would you like to review this service?",
-			"date": datetime.now().isoformat(),
-			"customerID": message["customerID"],
-			"messageBox": message["messageBox"],
-			"isCustomer": False,
-			"isBot": True
-		}
-
-		cur.execute("INSERT INTO message (customerID, text, date, isCustomer, isBot, messageBox) VALUES (:customerID, :text, :date, :isCustomer, :isBot, :messageBox)", reviewQuestion)
-		con.commit()
-		cur.close()
-
+# this is the endpoint for the bot to listen messages
 @app.route("/messageListener", methods=['POST'])
 def messageListener():
 	
@@ -43,17 +23,19 @@ def messageListener():
 	con = sqlite3.connect('db.sqlite')
 	cur = con.cursor()
 
-	# con.set_trace_callback(print)
-
-	cur.execute("INSERT INTO message (customerID, text, date, isCustomer, isBot, messageBox) VALUES (:customerID, :text, :date, :isCustomer, :isBot, :messageBox)", data)
+	query = cur.execute("INSERT INTO message (customerID, text, date, isCustomer, isBot, messageBox) \
+		VALUES (:customerID, :text, :date, :isCustomer, :isBot, :messageBox)", data)
 	con.commit()
 	cur.close()
 
-	processMessage(data)
+	message = dict(data)
+	message["id"] = query.lastrowid
 
-	return(request.data)
+	processMessage(message)
 
+	return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
+# this is the endpoint for getting conversation history
 @app.route("/messageBox", methods=['POST'])
 def messageBox():
 	data = request.get_json()
