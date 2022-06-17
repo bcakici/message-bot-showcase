@@ -11,7 +11,6 @@ def triggerThankYou(triggerMessage):
 	question = {
 		"text": "Would you like to review this service out of 5?",
 		"date": datetime.now().isoformat(),
-		"customerID": triggerMessage["customerID"],
 		"messageBox": triggerMessage["messageBox"],
 		"isCustomer": False,
 		"isBot": True
@@ -19,8 +18,8 @@ def triggerThankYou(triggerMessage):
 
 	con = sqlite3.connect('db.sqlite')
 	cur = con.cursor()
-	query = cur.execute("INSERT INTO message (customerID, text, date, isCustomer, isBot, messageBox) \
-		VALUES (:customerID, :text, :date, :isCustomer, :isBot, :messageBox)", question)
+	query = cur.execute("INSERT INTO message (text, date, isCustomer, isBot, messageBox) \
+		VALUES (:text, :date, :isCustomer, :isBot, :messageBox)", question)
 	
 	con.commit()
 

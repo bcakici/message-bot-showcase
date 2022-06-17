@@ -15,7 +15,6 @@ export default function useScenario() {
 	}, []);
 
 	const generateMessage = (message: Message): Message => ({
-		customerID: 1,
 		text: message.text,
 		date: new Date().toISOString(),
 		isCustomer: message.isCustomer,

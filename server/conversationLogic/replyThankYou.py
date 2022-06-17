@@ -20,7 +20,6 @@ def replyThankYou(answerMessage, botConversation):
 		feedbackMessage = {
 			"text": "Thank you for your feedback!",
 			"date": datetime.now().isoformat(),
-			"customerID": answerMessage["customerID"],
 			"messageBox": answerMessage["messageBox"],
 			"isCustomer": False,
 			"isBot": True
@@ -28,8 +27,8 @@ def replyThankYou(answerMessage, botConversation):
 
 		con = sqlite3.connect('db.sqlite')
 		cur = con.cursor()
-		query = cur.execute("INSERT INTO message (customerID, text, date, isCustomer, isBot, messageBox) \
-			VALUES (:customerID, :text, :date, :isCustomer, :isBot, :messageBox)", feedbackMessage)
+		query = cur.execute("INSERT INTO message (text, date, isCustomer, isBot, messageBox) \
+			VALUES (:text, :date, :isCustomer, :isBot, :messageBox)", feedbackMessage)
 		con.commit()
 		feedbackMessage["id"] = query.lastrowid
 
@@ -51,7 +50,6 @@ def replyThankYou(answerMessage, botConversation):
 		feedbackMessage = {
 			"text": "Sorry, I did not understand your feedback. Please try again.",
 			"date": datetime.now().isoformat(),
-			"customerID": answerMessage["customerID"],
 			"messageBox": answerMessage["messageBox"],
 			"isCustomer": False,
 			"isBot": True
@@ -59,7 +57,7 @@ def replyThankYou(answerMessage, botConversation):
 
 		con = sqlite3.connect('db.sqlite')
 		cur = con.cursor()
-		query = cur.execute("INSERT INTO message (customerID, text, date, isCustomer, isBot, messageBox) \
-			VALUES (:customerID, :text, :date, :isCustomer, :isBot, :messageBox)", feedbackMessage)
+		query = cur.execute("INSERT INTO message (text, date, isCustomer, isBot, messageBox) \
+			VALUES (:text, :date, :isCustomer, :isBot, :messageBox)", feedbackMessage)
 
 		con.commit()

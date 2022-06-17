@@ -1,6 +1,5 @@
 export default interface Message {
 	id?: number | null;
-	customerID?: number | null;
 	text: string;
 	date?: string | null;
 	isCustomer: boolean;

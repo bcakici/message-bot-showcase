@@ -1,11 +1,16 @@
 CREATE TABLE Message (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	customerID INTEGER,
 	messageBox text,
 	text text,
 	date text,
 	isCustomer INTEGER,
 	isBot INTEGER
+);
+
+CREATE TABLE MessageBox (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	customer text,
+	isTransactionCompleted INTEGER
 );
 
 CREATE TABLE BotConversation (
@@ -17,9 +22,4 @@ CREATE TABLE BotConversation (
 	feedbackID INTEGER,
 	rule text,
 	processedData text
-);
-
-CREATE TABLE Customer (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	name text
 );

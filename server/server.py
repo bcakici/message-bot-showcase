@@ -23,8 +23,8 @@ def messageListener():
 	con = sqlite3.connect('db.sqlite')
 	cur = con.cursor()
 
-	query = cur.execute("INSERT INTO message (customerID, text, date, isCustomer, isBot, messageBox) \
-		VALUES (:customerID, :text, :date, :isCustomer, :isBot, :messageBox)", data)
+	query = cur.execute("INSERT INTO message (text, date, isCustomer, isBot, messageBox) \
+		VALUES (:text, :date, :isCustomer, :isBot, :messageBox)", data)
 	con.commit()
 	cur.close()
 
@@ -36,14 +36,11 @@ def messageListener():
 	return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 # this is the endpoint for getting conversation history
-@app.route("/messageBox", methods=['POST'])
-def messageBox():
-	data = request.get_json()
-
+@app.route("/messageBox/<messageBoxID>/messages", methods=['GET'])
+def messageBox(messageBoxID):
 	con = sqlite3.connect('db.sqlite')
 	con.row_factory = sqlite3.Row
 
-	messageBoxID = data.get("messageBox")
 	result = con.execute(
 		"SELECT * FROM message WHERE messageBox IS ?", (messageBoxID,)).fetchall()
 	con.commit()
