@@ -45,12 +45,24 @@ def messageListener():
 
 # this is the endpoint for getting conversation history
 @app.route("/messageBox/<messageBoxID>/messages", methods=['GET'])
-def messageBox(messageBoxID):
+def messages_of(messageBoxID):
 	con = sqlite3.connect('db.sqlite')
 	con.row_factory = sqlite3.Row
 
 	result = con.execute(
 		"SELECT * FROM message WHERE messageBox IS ?", (messageBoxID,)).fetchall()
+	con.commit()
+
+	return(json.dumps([dict(ix) for ix in result]))
+
+# return last 10 message boxes
+@app.route("/messageBox/", methods=['GET'])
+def last_message_boxes():
+	con = sqlite3.connect('db.sqlite')
+	con.row_factory = sqlite3.Row
+
+	result = con.execute(
+		"SELECT * FROM messagebox ORDER BY id DESC LIMIT 10").fetchall()
 	con.commit()
 
 	return(json.dumps([dict(ix) for ix in result]))
