@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { Message } from "../pages";
+import Message from "../types/Message";
 import { v4 as uuidv4 } from "uuid";
 import scenarios from "../data/scenarios.json";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 
 export default function useScenario() {
 	const [scenario, setScenario] = useState<Message[]>([]);
@@ -14,7 +14,14 @@ export default function useScenario() {
 		setScenario(scenarios[newScenario] as Message[]);
 	}, []);
 
-	const queryClient = useQueryClient();
+	const generateMessage = (message: Message): Message => ({
+		customerID: 1,
+		text: message.text,
+		date: new Date().toISOString(),
+		isCustomer: message.isCustomer,
+		isBot: false,
+		messageBox: messageBoxID,
+	});
 
 	const fetchWithConfiguration = (
 		message: Message,
@@ -25,20 +32,13 @@ export default function useScenario() {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({
-				customerID: 1,
-				text: message.text,
-				date: new Date().toISOString(),
-				isCustomer: message.isCustomer,
-				isBot: false,
-				messageBox: messageBoxID,
-			}),
+			body: JSON.stringify(generateMessage(message)),
 			signal,
 		});
 
 	useQuery(
 		["messageListener"],
-		async ({ queryKey, signal }) => {
+		async ({ signal }) => {
 			const message = scenario[0];
 			if (message) {
 				setScenario((scenario) => scenario.slice(1));

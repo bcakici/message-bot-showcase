@@ -1,7 +1,6 @@
 import classnames from "classnames";
-import { useState } from "react";
-import { Message } from "../pages";
 import useMessageBoxQuery from "../hooks/useMessageBoxQuery";
+import Message from "../types/Message";
 
 export interface Properties {
 	messageBoxID: string;

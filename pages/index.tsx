@@ -4,12 +4,6 @@ import { useEffect } from "react";
 import MessageBox from "../components/MessageBox";
 import useScenario from "../hooks/useScenario";
 
-export interface Message {
-	text: string;
-	isCustomer: boolean;
-	id: number | null;
-}
-
 const Home: NextPage = () => {
 	const { setNewScenario, messageBoxID } = useScenario();
 
