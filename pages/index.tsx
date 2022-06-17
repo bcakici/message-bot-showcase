@@ -19,8 +19,8 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<div className="flex  w-full h-screen bg-gray-800 text-white p-10 ">
-				<div className="flex flex-col justify-center lg:flex-row w-full max-w-screen-2xl mx-auto">
+			<div className="flex w-full min-h-screen bg-gray-800 text-white p-10 overflow-x-clip">
+				<div className="flex flex-col justify-center lg:flex-row lg:w-full lg:max-w-screen-2xl mx-auto">
 					<div className="w-screen lg:flex-grow lg:w-2/3 p-10">
 						<h2 className="mb-10 font-thin text-xl">
 							Are customers satisfied?

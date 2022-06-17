@@ -1,6 +1,7 @@
 from flask import (Flask, jsonify, request)
 from flask_cors import CORS, cross_origin
 from datetime import datetime
+import time
 
 import sqlite3
 import json
@@ -16,7 +17,7 @@ def index():
 
 def processMessage(message):
 	if message["isCustomer"] and "thank you".casefold() in message["text"].casefold():
-
+		time.sleep(0.7)
 		# insert a new data into the database
 		con = sqlite3.connect('db.sqlite')
 		cur = con.cursor()
@@ -42,6 +43,7 @@ def messageListener():
 	con = sqlite3.connect('db.sqlite')
 	cur = con.cursor()
 
+	# con.set_trace_callback(print)
 
 	cur.execute("INSERT INTO message (customerID, text, date, isCustomer, isBot, messageBox) VALUES (:customerID, :text, :date, :isCustomer, :isBot, :messageBox)", data)
 	con.commit()
