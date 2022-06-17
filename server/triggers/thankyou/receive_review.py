@@ -2,25 +2,25 @@ from datetime import datetime
 import time
 import sqlite3
 
-def replyThankYou(answerMessage, botConversation):
+def receive_review(answer_message, bot_conversation):
 
 	# sleep to make it look more natural, otherwise the bot will reply immediately
 	# later make this asynchroneous
 	time.sleep(0.7)
 
-	text = answerMessage["text"]
+	text = answer_message["text"]
 
 	# get only the number from text
-	processedText = text.replace("$", "")
+	processed_text = text.replace("$", "")
 
 	# if there is a number and if number is in range complete bot conversation
-	if processedText.isdigit() and int(processedText) <= 5:
+	if processed_text.isdigit() and int(processed_text) <= 5:
 	
 		# give feedback to customer
 		feedbackMessage = {
 			"text": "Thank you for your feedback!",
 			"date": datetime.now().isoformat(),
-			"messageBox": answerMessage["messageBox"],
+			"messageBox": answer_message["messageBox"],
 			"isCustomer": False,
 			"isBot": True
 		}
@@ -32,14 +32,14 @@ def replyThankYou(answerMessage, botConversation):
 		con.commit()
 		feedbackMessage["id"] = query.lastrowid
 
-		# update botconversation with both answer and feedback id
-		botConversation["feedbackID"] = feedbackMessage["id"]
-		botConversation["answerID"] = answerMessage["id"]
+		# update bot_conversation with both answer and feedback id
+		bot_conversation["feedbackID"] = feedbackMessage["id"]
+		bot_conversation["answerID"] = answer_message["id"]
 		
 		cur.close()
 		cur = con.cursor()
-		cur.execute("UPDATE botconversation SET answerID = :answerID, feedbackID = :feedbackID WHERE id = :id",
-			botConversation)
+		cur.execute("UPDATE botConversation SET answerID = :answerID, feedbackID = :feedbackID WHERE id = :id",
+			bot_conversation)
 
 		con.commit()
 
@@ -50,7 +50,7 @@ def replyThankYou(answerMessage, botConversation):
 		feedbackMessage = {
 			"text": "Sorry, I did not understand your feedback. Please try again.",
 			"date": datetime.now().isoformat(),
-			"messageBox": answerMessage["messageBox"],
+			"messageBox": answer_message["messageBox"],
 			"isCustomer": False,
 			"isBot": True
 		}

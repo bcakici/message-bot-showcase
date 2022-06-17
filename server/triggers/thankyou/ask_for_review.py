@@ -2,7 +2,7 @@ from datetime import datetime
 import time
 import sqlite3
 
-def triggerThankYou(triggerMessage):
+def ask_for_review(trigger_message):
 
 	# sleep to make it look more natural, otherwise the bot will reply immediately
 	# later make this asynchroneous
@@ -11,7 +11,7 @@ def triggerThankYou(triggerMessage):
 	question = {
 		"text": "Would you like to review this service out of 5?",
 		"date": datetime.now().isoformat(),
-		"messageBox": triggerMessage["messageBox"],
+		"messageBox": trigger_message["messageBox"],
 		"isCustomer": False,
 		"isBot": True
 	}
@@ -26,9 +26,9 @@ def triggerThankYou(triggerMessage):
 	question["id"] = query.lastrowid
 
 	botConversation = {
-		"triggerID": triggerMessage["id"],
+		"triggerID": trigger_message["id"],
 		"questionID": question["id"],
-		"messageBox": triggerMessage["messageBox"],
+		"messageBox": trigger_message["messageBox"],
 		"rule": "THANK_YOU",
 	}
 

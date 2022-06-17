@@ -5,7 +5,7 @@ import sqlite3
 import json
 import names
 
-from processMessage import processMessage
+from process_message import process_message
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
@@ -30,7 +30,6 @@ def messageListener():
 		names.get_first_name()
 		cur.execute("INSERT INTO messagebox (id,customer) VALUES (:id, :customer)", {"id": data["messageBox"], "customer": names.get_first_name()})
 		con.commit()
-		cur.close()
 
 	query = cur.execute("INSERT INTO message (text, date, isCustomer, isBot, messageBox) \
 		VALUES (:text, :date, :isCustomer, :isBot, :messageBox)", data)
@@ -40,7 +39,7 @@ def messageListener():
 	message = dict(data)
 	message["id"] = query.lastrowid
 
-	processMessage(message)
+	process_message(message)
 
 	return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
