@@ -5,6 +5,7 @@
 		{ "text": "I want to order a hamburger", "isCustomer": true },
 		{ "text": "Would you like fries with that?", "isCustomer": false },
 		{ "text": "No thank you.", "isCustomer": true },
+		{ "text": "Whatever", "isCustomer": true },
 		{ "text": "5", "isCustomer": true },
 		{ "text": "🍔", "isCustomer": true }
 	]
