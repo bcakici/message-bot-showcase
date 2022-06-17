@@ -8,7 +8,7 @@ CREATE TABLE Message (
 );
 
 CREATE TABLE MessageBox (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	id text PRIMARY KEY,
 	customer text,
 	isTransactionCompleted INTEGER
 );

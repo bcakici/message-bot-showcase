@@ -3,6 +3,7 @@ from flask_cors import CORS, cross_origin
 
 import sqlite3
 import json
+import names
 
 from processMessage import processMessage
 
@@ -22,6 +23,14 @@ def messageListener():
 
 	con = sqlite3.connect('db.sqlite')
 	cur = con.cursor()
+
+	# create a message box if it does not exist yet
+	query = cur.execute("SELECT id FROM messagebox WHERE id = ?", (data["messageBox"],))
+	if query.fetchone() is None:
+		names.get_first_name()
+		cur.execute("INSERT INTO messagebox (id,customer) VALUES (:id, :customer)", {"id": data["messageBox"], "customer": names.get_first_name()})
+		con.commit()
+		cur.close()
 
 	query = cur.execute("INSERT INTO message (text, date, isCustomer, isBot, messageBox) \
 		VALUES (:text, :date, :isCustomer, :isBot, :messageBox)", data)
