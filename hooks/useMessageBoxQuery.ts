@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 
 export default (messageBoxID: string) => {
 	const fetchWithConfiguration = (messageBoxID: string) =>
-		fetch(`http://localhost:3003/messageBox/${messageBoxID}/messages`, {
+		fetch(`http://localhost:3003/messages/${messageBoxID}`, {
 			method: "GET",
 		});
 

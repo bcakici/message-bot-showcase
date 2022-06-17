@@ -44,8 +44,8 @@ def messageListener():
 	return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 # this is the endpoint for getting conversation history
-@app.route("/messageBox/<messageBoxID>/messages", methods=['GET'])
-def messages_of(messageBoxID):
+@app.route("/messages/<messageBoxID>/", methods=['GET'])
+def messages(messageBoxID):
 	con = sqlite3.connect('db.sqlite')
 	con.row_factory = sqlite3.Row
 
@@ -56,7 +56,7 @@ def messages_of(messageBoxID):
 	return(json.dumps([dict(ix) for ix in result]))
 
 # return last 10 message boxes
-@app.route("/messageBox/", methods=['GET'])
+@app.route("/dashboard/", methods=['GET'])
 def last_message_boxes():
 	con = sqlite3.connect('db.sqlite')
 	con.row_factory = sqlite3.Row
