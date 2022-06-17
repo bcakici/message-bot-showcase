@@ -35,10 +35,12 @@ def receive_review(answer_message, bot_conversation):
 		# update bot_conversation with both answer and feedback id
 		bot_conversation["feedbackID"] = feedbackMessage["id"]
 		bot_conversation["answerID"] = answer_message["id"]
+		bot_conversation["processedData"] = processed_text
 		
 		cur.close()
 		cur = con.cursor()
-		cur.execute("UPDATE botConversation SET answerID = :answerID, feedbackID = :feedbackID WHERE id = :id",
+		cur.execute("UPDATE botConversation SET answerID = :answerID, feedbackID = :feedbackID, \
+			processedData = :processedData WHERE id = :id",
 			bot_conversation)
 
 		con.commit()
@@ -46,7 +48,7 @@ def receive_review(answer_message, bot_conversation):
 	# if there is no number or number is not in range
 	else:
 		
-		# give feedback to customer
+		# give feedback to customer to try again
 		feedbackMessage = {
 			"text": "Sorry, I did not understand your feedback. Please try again.",
 			"date": datetime.now().isoformat(),

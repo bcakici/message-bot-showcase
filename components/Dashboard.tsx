@@ -55,7 +55,13 @@ export default function Dashboard() {
 							)}
 						</div>
 						<div className="flex flex-1"></div>
-						<div className="flex flex-1">2/5</div>
+						<div className="flex flex-1">
+							{dashboardItem.outOfFive ? (
+								<p>{dashboardItem.outOfFive}/5</p>
+							) : (
+								""
+							)}
+						</div>
 						<div className="flex flex-1">Could be better.</div>
 					</div>
 				))}
