@@ -44,7 +44,7 @@ export default function Dashboard() {
 				{data?.map((dashboardItem: DashboardItem) => (
 					<div className="flex justify-between">
 						<div className="flex flex-1">{dashboardItem.customer}</div>
-						<div className="flex flex-1">
+						<div className="flex flex-1 text-gray-600">
 							{dashboardItem.isTransactionCompleted ? (
 								<p>
 									at new
@@ -62,7 +62,7 @@ export default function Dashboard() {
 								""
 							)}
 						</div>
-						<div className="flex flex-1">Could be better.</div>
+						<div className="flex flex-1 text-gray-600">Very nice.</div>
 					</div>
 				))}
 			</div>

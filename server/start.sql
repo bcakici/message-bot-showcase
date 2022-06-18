@@ -10,6 +10,7 @@ CREATE TABLE Message (
 CREATE TABLE MessageBox (
 	id text PRIMARY KEY,
 	customer text,
+	date text,
 	isTransactionCompleted text
 );
 

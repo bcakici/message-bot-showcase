@@ -28,7 +28,8 @@ def messageListener():
 	query = cur.execute("SELECT id FROM messagebox WHERE id = ?", (data["messageBox"],))
 	if query.fetchone() is None:
 		names.get_first_name()
-		cur.execute("INSERT INTO messagebox (id,customer) VALUES (:id, :customer)", {"id": data["messageBox"], "customer": names.get_first_name()})
+		messageBox = {"id": data["messageBox"], "date": data["date"], "customer": names.get_first_name()}
+		cur.execute("INSERT INTO messagebox (id, customer, date) VALUES (:id, :customer, :date)", messageBox)
 		con.commit()
 
 	query = cur.execute("INSERT INTO message (text, date, isCustomer, isBot, messageBox) \
@@ -62,7 +63,7 @@ def last_message_boxes():
 	con.row_factory = sqlite3.Row
 
 	result = con.execute(
-		"SELECT * FROM dashboard ORDER BY id DESC LIMIT 10").fetchall()
+		"SELECT * FROM dashboard ORDER BY date ASC LIMIT 10").fetchall()
 	con.commit()
 
 	return(json.dumps([dict(ix) for ix in result]))
