@@ -1,7 +1,5 @@
-import classnames from "classnames";
 import { useState } from "react";
 import useSendMessageMutation from "../hooks/useSendMessageMutation";
-import Message from "../types/Message";
 
 export interface Properties {
 	messageBoxID: string;

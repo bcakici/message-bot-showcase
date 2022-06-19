@@ -46,8 +46,10 @@ const Home: NextPage = () => {
 								</svg>
 							</a>
 						</div>
-						<MessageBox messageBoxID={messageBoxID}></MessageBox>
-						<MessageInput messageBoxID={messageBoxID}></MessageInput>
+						<div className="flex flex-col mx-auto w-full max-w-lg lg:max-w-full">
+							<MessageBox messageBoxID={messageBoxID}></MessageBox>
+							<MessageInput messageBoxID={messageBoxID}></MessageInput>
+						</div>
 					</div>
 				</div>
 			</div>
