@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useEffect } from "react";
 import Dashboard from "../components/Dashboard";
 import MessageBox from "../components/MessageBox";
+import MessageInput from "../components/MessageInput";
 import useScenario from "../hooks/useScenario";
 
 const Home: NextPage = () => {
@@ -46,6 +47,7 @@ const Home: NextPage = () => {
 							</a>
 						</div>
 						<MessageBox messageBoxID={messageBoxID}></MessageBox>
+						<MessageInput messageBoxID={messageBoxID}></MessageInput>
 					</div>
 				</div>
 			</div>

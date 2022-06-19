@@ -30,13 +30,14 @@ def ask_for_review(trigger_message):
 		"questionID": question["id"],
 		"messageBox": trigger_message["messageBox"],
 		"rule": "THANK_YOU",
+		"date": datetime.now().isoformat()
 	}
 
 	# con.set_trace_callback(print)
 
 	cur.close()
 	cur = con.cursor()
-	cur.execute("INSERT INTO botconversation (triggerID, questionID, messageBox, rule) \
-		VALUES (:triggerID, :questionID, :messageBox, :rule)", botConversation)
+	cur.execute("INSERT INTO botconversation (triggerID, questionID, messageBox, rule, date) \
+		VALUES (:triggerID, :questionID, :messageBox, :rule, :date)", botConversation)
 
 	con.commit()

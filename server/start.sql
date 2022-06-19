@@ -1,3 +1,7 @@
+-- DELETE FROM MESSAGE;
+-- DELETE FROM MESSAGEBOX;
+-- DELETE FROM BOTCONVERSATION;
+
 CREATE TABLE Message (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	messageBox text,
@@ -16,6 +20,7 @@ CREATE TABLE MessageBox (
 
 CREATE TABLE BotConversation (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	date text,
 	messageBox text,
 	triggerID INTEGER,
 	questionID INTEGER,
@@ -25,15 +30,19 @@ CREATE TABLE BotConversation (
 	processedData text
 );
 
+-- DROP VIEW DASHBOARD;
 CREATE VIEW Dashboard AS WITH outOfFive AS (
 	SELECT
 		messageBox,
+		date,
 		processedData as outOfFive
 	FROM
 		BotConversation
 	WHERE
 		rule IS "THANK_YOU"
 		AND processedData IS NOT NULL
+	ORDER BY
+		date DESC
 )
 SELECT
 	*
