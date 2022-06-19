@@ -10,6 +10,12 @@ export interface Properties {
 export default function MessageView(props: Properties) {
 	const sendMessageMutation = useSendMessageMutation(props.messageBoxID);
 	const [text, setText] = useState("");
+	const onEnter = () => {
+		{
+			sendMessageMutation.mutate(text);
+			setText("");
+		}
+	};
 
 	return (
 		<input
@@ -17,7 +23,7 @@ export default function MessageView(props: Properties) {
 			type="text"
 			value={text}
 			onChange={(e) => setText(e.target.value)}
-			onKeyDown={(e) => e.key === "Enter" && sendMessageMutation.mutate(text)}
+			onKeyDown={(e) => e.key === "Enter" && onEnter()}
 		/>
 	);
 }

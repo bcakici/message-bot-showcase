@@ -4,10 +4,6 @@ import sqlite3
 
 def receive_review(answer_message, bot_conversation):
 
-	# sleep to make it look more natural, otherwise the bot will reply immediately
-	# later make this asynchroneous
-	time.sleep(0.7)
-
 	text = answer_message["text"]
 
 	# get only the number from text
