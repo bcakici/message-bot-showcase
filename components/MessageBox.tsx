@@ -13,8 +13,8 @@ export default function MessageView(props: Properties) {
 
 	return (
 		<>
-			<div className="rounded-t-xl p-3 text-xl bg-gray-900 text-center">
-				{data?.customer}
+			<div className="flex justify-center items-center rounded-t-xl text-xl bg-gray-900 text-center min-h-[4rem]">
+				<div>{data?.customer}</div>
 			</div>
 			<div className="flex flex-col gap-5 justify-end content-end grow-1 bg-blue-300 text-gray-900 p-10 mx-auto w-full min-h-[30rem] max-h-[30rem] lg:min-h-[40rem] lg:max-h-[40rem] overflow-clip">
 				{data?.messages.map((message: Message) => (

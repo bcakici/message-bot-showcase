@@ -24,8 +24,8 @@ const Home: NextPage = () => {
 			<div className="flex w-full min-h-screen bg-gray-800 text-white p-10 overflow-x-clip">
 				<div className="flex flex-col justify-center lg:flex-row lg:w-full lg:max-w-screen-2xl mx-auto">
 					<Dashboard openMessageBox={openMessageBox} />
-					<div className="flex flex-col lg:w-1/3 h-5/6">
-						<div className="flex my-10">
+					<div className="flex flex-col lg:w-1/3 h-5/6 gap-2">
+						<div className="flex flex-col gap-5 p-5">
 							<a
 								className="text-orange-400 inline-flex items-center ml-4"
 								onClick={() => {
@@ -33,6 +33,25 @@ const Home: NextPage = () => {
 								}}
 							>
 								Run scenario
+								<svg
+									fill="none"
+									stroke="currentColor"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
+									className="w-4 h-4 ml-2"
+									viewBox="0 0 24 24"
+								>
+									<path d="M5 12h14M12 5l7 7-7 7"></path>
+								</svg>
+							</a>
+							<a
+								className="text-orange-400 inline-flex items-center ml-4"
+								onClick={() => {
+									setNewScenario("empty");
+								}}
+							>
+								Start with empty message box
 								<svg
 									fill="none"
 									stroke="currentColor"

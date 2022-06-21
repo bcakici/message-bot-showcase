@@ -1,4 +1,5 @@
 {
+	"empty": [],
 	"hamburger": [
 		{ "text": "Hello", "isCustomer": true },
 		{ "text": "Hello, how may I help you?", "isCustomer": false },
