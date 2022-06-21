@@ -43,9 +43,11 @@ CREATE VIEW Dashboard AS WITH outOfFive AS (
 		AND processedData IS NOT NULL
 	ORDER BY
 		date DESC
-)
-SELECT
+), lastTenNeedsOrder AS
+(SELECT
 	*
 FROM
 	MessageBox mb
-	LEFT JOIN outOfFive oof ON mb.id = oof.messageBox;
+	LEFT JOIN outOfFive oof ON mb.id = oof.messageBox
+	ORDER BY date DESC LIMIT 10) 
+SELECT * FROM lastTenNeedsOrder ORDER BY date ASC;

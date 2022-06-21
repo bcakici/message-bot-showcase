@@ -63,7 +63,7 @@ def last_message_boxes():
 	con.row_factory = sqlite3.Row
 
 	result = con.execute(
-		"SELECT * FROM dashboard ORDER BY date ASC LIMIT 10").fetchall()
+		"SELECT * FROM dashboard").fetchall()
 	con.commit()
 
 	return(json.dumps([dict(ix) for ix in result]))
