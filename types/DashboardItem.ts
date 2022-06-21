@@ -3,4 +3,5 @@ export default interface DashboardItem {
 	customer: string;
 	isTransactionCompleted?: string | null;
 	outOfFive?: string | null;
+	date: string;
 }
