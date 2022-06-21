@@ -1,12 +1,14 @@
+import { useState } from "react";
 import { useQuery } from "react-query";
 
 export default (messageBoxID: string) => {
+	const [refetchInterval, setRefetchInterval] = useState<number | false>(750);
 	const fetchWithConfiguration = (messageBoxID: string) =>
 		fetch(`http://localhost:3003/messages/${messageBoxID}`, {
 			method: "GET",
 		});
 
-	return useQuery(
+	const keys = useQuery(
 		["messageBox", messageBoxID],
 		async ({ queryKey }) => {
 			const [key, messageBoxID] = queryKey;
@@ -16,7 +18,16 @@ export default (messageBoxID: string) => {
 			return jsonResult;
 		},
 		{
-			refetchInterval: 750,
+			refetchOnWindowFocus: false,
+			refetchInterval,
 		}
 	);
+
+	if (keys.failureCount > 0 && refetchInterval !== false) {
+		setRefetchInterval(false);
+	} else if (keys.failureCount === 0 && refetchInterval === false) {
+		setRefetchInterval(750);
+	}
+
+	return keys;
 };
