@@ -35,7 +35,7 @@ export default function Dashboard(props: Properties) {
 					<div className="flex flex-1">Some date</div>
 					<div className="flex flex-1">At 05.05.2022</div>
 					<div className="flex flex-1">5/5</div>
-					<div className="flex flex-1">It's peeerfect.</div>
+					<div className="flex flex-1">It&apos;s peeerfect.</div>
 				</div>
 				<div className="flex justify-between">
 					<div className="flex flex-1">Joe</div>
@@ -47,7 +47,7 @@ export default function Dashboard(props: Properties) {
 					<div className="flex flex-1">Could be better.</div>
 				</div>
 				{data?.map((dashboardItem: DashboardItem) => (
-					<div className="flex justify-between">
+					<div key={dashboardItem.id} className="flex justify-between">
 						<div className="flex flex-1">
 							<span
 								className="cursor-pointer underline"
