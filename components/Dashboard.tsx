@@ -2,7 +2,11 @@ import useDashboardQuery from "../hooks/useDashboardQuery";
 import DashboardItem from "../types/DashboardItem";
 import isToday from "../utils/isToday";
 
-export default function Dashboard() {
+export interface Properties {
+	goBackToMessageBox: (value: string) => void;
+}
+
+export default function Dashboard(props: Properties) {
 	const { data } = useDashboardQuery();
 
 	return (
@@ -44,7 +48,14 @@ export default function Dashboard() {
 				</div>
 				{data?.map((dashboardItem: DashboardItem) => (
 					<div className="flex justify-between">
-						<div className="flex flex-1">{dashboardItem.customer}</div>
+						<div className="flex flex-1">
+							<span
+								className="cursor-pointer underline"
+								onClick={() => props.goBackToMessageBox(dashboardItem.id)}
+							>
+								{dashboardItem.customer}
+							</span>
+						</div>
 						<div className="flex flex-1">
 							{isToday(dashboardItem.date)
 								? new Date(dashboardItem.date).toLocaleTimeString([], {

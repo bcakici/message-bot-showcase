@@ -1,5 +1,5 @@
 export default interface DashboardItem {
-	messageBox: string | null;
+	id: string;
 	customer: string;
 	isTransactionCompleted?: string | null;
 	outOfFive?: string | null;

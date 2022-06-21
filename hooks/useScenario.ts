@@ -7,11 +7,19 @@ import { useQuery } from "react-query";
 export default function useScenario() {
 	const [scenario, setScenario] = useState<Message[]>([]);
 	const [messageBoxID, setMessageBoxID] = useState("");
-	const [enabled, setEnabled] = useState(true);
+	const [scenarioEnabled, setScenarioEnabled] = useState(true);
+
+	const goBackToMessageBox = useCallback((messageBoxID: string) => {
+		console.log("setting message box to ", messageBoxID);
+		setScenarioEnabled(false);
+		setMessageBoxID(messageBoxID);
+	}, []);
 
 	const setNewScenario = useCallback((newScenario: string) => {
+		setScenarioEnabled(false);
 		setMessageBoxID(uuidv4());
 		setScenario(scenarios[newScenario] as Message[]);
+		setScenarioEnabled(true);
 	}, []);
 
 	const generateMessage = (message: Message): Message => ({
@@ -45,18 +53,14 @@ export default function useScenario() {
 				const jsonResult = await res.json();
 				return jsonResult;
 			} else {
-				setEnabled(false);
+				setScenarioEnabled(false);
 			}
 		},
 		{
 			refetchInterval: 1500,
-			enabled,
+			enabled: scenarioEnabled,
 		}
 	);
 
-	useEffect(() => {
-		setEnabled(true);
-	}, [messageBoxID]);
-
-	return { messageBoxID, setNewScenario };
+	return { messageBoxID, setNewScenario, goBackToMessageBox };
 }
