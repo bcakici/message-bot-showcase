@@ -6,11 +6,12 @@ import { EventEmitter } from "stream";
 export default (messageBoxID: string) => {
 	const generateMessage = (
 		messageBoxID: string,
-		messageText: string
+		messageText: string,
+		isCustomer: boolean = true
 	): Message => ({
 		text: messageText,
 		date: new Date().toISOString(),
-		isCustomer: true,
+		isCustomer,
 		isBot: false,
 		messageBox: messageBoxID,
 	});
@@ -27,8 +28,10 @@ export default (messageBoxID: string) => {
 	const queryClient = useQueryClient();
 
 	return useMutation(
-		(messageText: string) => {
-			return fetchWithConfiguration(generateMessage(messageBoxID, messageText));
+		(semiMessage: Message) => {
+			return fetchWithConfiguration(
+				generateMessage(messageBoxID, semiMessage.text, semiMessage.isCustomer)
+			);
 		},
 		{
 			onSuccess: () => {
