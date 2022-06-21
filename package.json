@@ -8,7 +8,8 @@
 		"start": "next start",
 		"lint": "next lint",
 		"dev-server": "cd server; pipenv run python3 server.py",
-		"sqlite-cli": "sqlite3 server/db.sqlite"
+		"sqlite-cli": "sqlite3 server/db.sqlite",
+		"cypress": "cypress open"
 	},
 	"dependencies": {
 		"@types/uuid": "^8.3.4",
@@ -25,6 +26,7 @@
 		"@types/react": "18.0.12",
 		"@types/react-dom": "18.0.5",
 		"autoprefixer": "^10.4.7",
+		"cypress": "^10.1.0",
 		"eslint": "8.17.0",
 		"eslint-config-next": "12.1.6",
 		"postcss": "^8.4.14",

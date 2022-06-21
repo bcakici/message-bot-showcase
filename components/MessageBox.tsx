@@ -29,6 +29,7 @@ export default function MessageView(props: Properties) {
 			<div
 				ref={messageScroller}
 				className="flex flex-col gap-5 content-end grow-1 bg-blue-300 text-gray-900 p-10 mx-auto w-full min-h-[30rem] max-h-[30rem] lg:min-h-[40rem] lg:max-h-[40rem] overflow-x-clip overflow-y-auto scroll-smooth"
+				id="messages"
 			>
 				{data?.messages.map((message: Message, i: number) => (
 					<div

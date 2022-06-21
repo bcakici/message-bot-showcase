@@ -22,8 +22,9 @@ export default function MessageView(props: Properties) {
 
 	return (
 		<input
-			className="bg-white text-gray-900 rounded-b-xl px-10 py-[2rem] w-full min-h-[6rem] max-h-[10rem] break-words"
+			className="bg-white text-gray-900 rounded-b-xl px-10 py-[2rem] w-full min-h-[6rem] max-h-[10rem] break-words asd"
 			type="text"
+			name="messageInput"
 			value={text}
 			placeholder="Send with Enter or Alt+Enter (Customer or Business)"
 			onChange={(e) => setText(e.target.value)}
