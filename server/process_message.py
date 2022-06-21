@@ -25,7 +25,7 @@ def process_message(message):
 
 
 	# THANK_YOU RULE
-	elif message["isCustomer"] and "thank you".casefold() in message["text"].casefold():
+	elif message["isCustomer"] and "thank".casefold() in message["text"].casefold():
 		ask_for_review(message)
 	
 	return
