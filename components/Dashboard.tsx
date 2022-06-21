@@ -30,22 +30,6 @@ export default function Dashboard(props: Properties) {
 						Review Note
 					</div>
 				</div>
-				<div className="flex justify-between">
-					<div className="flex flex-1">Berkay</div>
-					<div className="flex flex-1">Some date</div>
-					<div className="flex flex-1">At 05.05.2022</div>
-					<div className="flex flex-1">5/5</div>
-					<div className="flex flex-1">It&apos;s peeerfect.</div>
-				</div>
-				<div className="flex justify-between">
-					<div className="flex flex-1">Joe</div>
-					<div className="flex flex-1">Some date</div>
-					<div className="flex flex-1">
-						<a>Mark as completed</a>
-					</div>
-					<div className="flex flex-1">2/5</div>
-					<div className="flex flex-1">Could be better.</div>
-				</div>
 				{data?.map((dashboardItem: DashboardItem) => (
 					<div key={dashboardItem.id} className="flex justify-between">
 						<div className="flex flex-1">

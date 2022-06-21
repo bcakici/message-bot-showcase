@@ -9,6 +9,8 @@
 		"lint": "next lint",
 		"dev-server": "cd server; pipenv run python3 server.py",
 		"sqlite-cli": "sqlite3 server/db.sqlite",
+		"sqlite-init": "sqlite3 server/db.sqlite < server/sql/drop_all.sql; sqlite3 server/db.sqlite < server/sql/create_all.sql; sqlite3 server/db.sqlite < server/sql/example_data.sql",
+		"sqlite-g-example": "sqlite3 server/db.sqlite .dump > server/sql/example_data.sql",
 		"cypress": "cypress open"
 	},
 	"dependencies": {

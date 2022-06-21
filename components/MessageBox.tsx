@@ -50,7 +50,7 @@ export default function MessageView(props: Properties) {
 				))}
 				{(failureCount > 0 && (
 					<div className="p-10 rounded-2xl text-white bg-gray-700 text-center text-xl shadow-lg">
-						<p className="font-bold ">Can't connect to server</p>
+						<p className="font-bold ">Cant connect to server</p>
 
 						{isFetching ? (
 							<p className="text-sm mt-5 text-gray-400">Loading...</p>

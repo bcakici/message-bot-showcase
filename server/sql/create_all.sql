@@ -1,7 +1,3 @@
--- DELETE FROM MESSAGE;
--- DELETE FROM MESSAGEBOX;
--- DELETE FROM BOTCONVERSATION;
-
 CREATE TABLE Message (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	messageBox text,
@@ -30,7 +26,6 @@ CREATE TABLE BotConversation (
 	processedData text
 );
 
--- DROP VIEW DASHBOARD;
 CREATE VIEW Dashboard AS WITH outOfFive AS (
 	SELECT
 		messageBox,
