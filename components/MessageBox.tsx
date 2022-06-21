@@ -34,7 +34,7 @@ export default function MessageView(props: Properties) {
 						{message.text}
 					</div>
 				))}
-				{failureCount > 0 && (
+				{(failureCount > 0 && (
 					<div className="p-10 rounded-2xl text-white bg-gray-700 text-center text-xl shadow-lg">
 						<p className="font-bold ">Can't connect to server</p>
 
@@ -49,7 +49,12 @@ export default function MessageView(props: Properties) {
 							</p>
 						)}
 					</div>
-				)}
+				)) ||
+					(data?.messages.length === 0 && (
+						<p className="text-sm text-gray-600 text-center my-10">
+							This message box is empty. Say something.
+						</p>
+					))}
 			</div>
 		</>
 	);
