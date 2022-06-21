@@ -9,7 +9,7 @@ export default function useScenario() {
 	const [messageBoxID, setMessageBoxID] = useState("");
 	const [scenarioEnabled, setScenarioEnabled] = useState(true);
 
-	const goBackToMessageBox = useCallback((messageBoxID: string) => {
+	const openMessageBox = useCallback((messageBoxID: string) => {
 		console.log("setting message box to ", messageBoxID);
 		setScenarioEnabled(false);
 		setMessageBoxID(messageBoxID);
@@ -62,5 +62,5 @@ export default function useScenario() {
 		}
 	);
 
-	return { messageBoxID, setNewScenario, goBackToMessageBox };
+	return { messageBoxID, setNewScenario, openMessageBox };
 }

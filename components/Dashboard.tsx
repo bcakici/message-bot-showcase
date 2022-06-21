@@ -3,7 +3,7 @@ import DashboardItem from "../types/DashboardItem";
 import isToday from "../utils/isToday";
 
 export interface Properties {
-	goBackToMessageBox: (value: string) => void;
+	openMessageBox: (value: string) => void;
 }
 
 export default function Dashboard(props: Properties) {
@@ -51,7 +51,7 @@ export default function Dashboard(props: Properties) {
 						<div className="flex flex-1">
 							<span
 								className="cursor-pointer underline"
-								onClick={() => props.goBackToMessageBox(dashboardItem.id)}
+								onClick={() => props.openMessageBox(dashboardItem.id)}
 							>
 								{dashboardItem.customer}
 							</span>
