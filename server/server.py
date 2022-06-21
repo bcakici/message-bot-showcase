@@ -54,7 +54,16 @@ def messages(messageBoxID):
 		"SELECT * FROM message WHERE messageBox IS ?", (messageBoxID,)).fetchall()
 	con.commit()
 
-	return(json.dumps([dict(ix) for ix in result]))
+	# also get customer
+	customer = con.execute("SELECT customer FROM messagebox WHERE id IS ?", (messageBoxID,)).fetchone()
+	con.close()
+
+	# if customer does not exist return Initializing
+	if customer is None:
+		return json.dumps({"customer": "Initializing...", "messages": []}), 200, {'ContentType':'application/json'}
+
+	# return both customer and messages
+	return json.dumps({"customer": customer[0], "messages": [dict(ix) for ix in result]})
 
 # return last 10 message boxes
 @app.route("/dashboard/", methods=['GET'])
