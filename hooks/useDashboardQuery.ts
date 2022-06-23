@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 
 export default () => {
 	const fetchWithConfiguration = () =>
-		fetch(`http://localhost:3003/dashboard`, {
+		fetch(`${process.env.NEXT_PUBLIC_SERVER}/dashboard`, {
 			method: "GET",
 		});
 

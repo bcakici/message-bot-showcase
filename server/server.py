@@ -8,8 +8,7 @@ import names
 from process_message import process_message
 
 app = Flask(__name__)
-CORS(app, support_credentials=True)
-
+cors = CORS(app)
 
 @app.route("/")
 def index():

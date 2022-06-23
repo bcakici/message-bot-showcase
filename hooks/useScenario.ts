@@ -34,7 +34,7 @@ export default function useScenario() {
 		message: Message,
 		signal: AbortSignal | undefined
 	) =>
-		fetch("http://localhost:3003/messageListener", {
+		fetch(`${process.env.NEXT_PUBLIC_SERVER}/messageListener`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

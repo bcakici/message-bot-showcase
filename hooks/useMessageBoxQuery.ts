@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 export default (messageBoxID: string) => {
 	const [refetchInterval, setRefetchInterval] = useState<number | false>(750);
 	const fetchWithConfiguration = (messageBoxID: string) =>
-		fetch(`http://localhost:3003/messages/${messageBoxID}`, {
+		fetch(`${process.env.NEXT_PUBLIC_SERVER}/messages/${messageBoxID}`, {
 			method: "GET",
 		});
 

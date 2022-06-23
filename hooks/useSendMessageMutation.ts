@@ -17,7 +17,7 @@ export default (messageBoxID: string) => {
 	});
 
 	const fetchWithConfiguration = (message: Message) =>
-		fetch("http://localhost:3003/messageListener", {
+		fetch(`${process.env.NEXT_PUBLIC_SERVER}/messageListener`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
