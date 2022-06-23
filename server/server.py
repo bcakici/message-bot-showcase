@@ -12,7 +12,7 @@ cors = CORS(app)
 
 @app.route("/")
 def index():
-	return "I am working, don't disturb me."
+	return "Welcome to the server!"
 
 # this is the endpoint for the bot to listen messages
 @app.route("/messageListener", methods=['POST'])

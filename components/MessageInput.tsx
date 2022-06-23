@@ -26,7 +26,7 @@ export default function MessageView(props: Properties) {
 			type="text"
 			name="messageInput"
 			value={text}
-			placeholder="Send with Enter or Alt+Enter (Customer or Business)"
+			placeholder="Send with Enter or Shift+Enter (Customer or Business)"
 			onChange={(e) => setText(e.target.value)}
 			onKeyDown={(e) => onKeyDown(e)}
 		/>
