@@ -21,13 +21,13 @@ export default function Dashboard(props: Properties) {
 						Start at
 					</div>
 					<div className="flex flex-1 text-sm font-semibold text-gray-400">
-						Transaction completed
+						Transaction
 					</div>
 					<div className="flex flex-1 text-sm font-semibold text-gray-400">
 						Out of 5
 					</div>
-					<div className="flex flex-1 text-sm font-semibold text-gray-400">
-						Review Note
+					<div className="hidden lg:flex flex-1 text-sm font-semibold text-gray-400">
+						Note
 					</div>
 				</div>
 				{data?.map((dashboardItem: DashboardItem) => (
@@ -48,24 +48,29 @@ export default function Dashboard(props: Properties) {
 								  })
 								: new Date(dashboardItem.date).toLocaleDateString()}
 						</div>
-						<div className="flex flex-1 text-gray-600">
+						<div className="flex flex-1 text-gray-600 truncate">
 							{dashboardItem.isTransactionCompleted ? (
 								<p>
 									at new
 									Date(dashboardItem.isTransactionCompleted).toLocaleString()
 								</p>
 							) : (
-								<a>Mark as completed</a>
+								<>
+									<a className="hidden lg:block">Mark as completed</a>
+									<a className="lg:hidden">Mark</a>
+								</>
 							)}
 						</div>
-						<div className="flex flex-1">
+						<div className="flex flex-1 truncate">
 							{dashboardItem.outOfFive ? (
 								<p>{dashboardItem.outOfFive}/5</p>
 							) : (
 								""
 							)}
 						</div>
-						<div className="flex flex-1 text-gray-600">Very nice.</div>
+						<div className="hidden lg:flex flex-1 text-gray-600">
+							Very nice.
+						</div>
 					</div>
 				))}
 			</div>

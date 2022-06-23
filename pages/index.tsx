@@ -27,7 +27,7 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<div className="flex w-full min-w-fit min-h-screen bg-gray-800 text-white p-10 overflow-x-clip">
+			<div className="flex w-full min-w-fit min-h-screen bg-gray-800 text-white p-2 lg:p-10 overflow-x-clip">
 				<div className="flex flex-col justify-center lg:flex-row lg:w-full lg:max-w-screen-2xl mx-auto">
 					<Dashboard openMessageBox={openMessageBox} />
 					<div className="flex flex-col lg:w-1/3 h-5/6 gap-2">
