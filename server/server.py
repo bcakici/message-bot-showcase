@@ -1,6 +1,8 @@
 from flask import (Flask, jsonify, request)
 from flask_cors import CORS, cross_origin
 
+from datetime import datetime
+
 import sqlite3
 import json
 import names
@@ -64,6 +66,19 @@ def messages(messageBoxID):
 	# return both customer and messages
 	return json.dumps({"customer": customer[0], "messages": [dict(ix) for ix in result]})
 
+# mark transaction as completed
+@app.route("/completeTransaction/<messageBoxID>/", methods=['GET'])
+def completeTransaction(messageBoxID):
+	con = sqlite3.connect('db.sqlite')
+	cur = con.cursor()
+
+	# mark message box as completed
+	cur.execute("UPDATE messagebox SET isTransactionCompleted = ? WHERE id IS ?", (datetime.now().isoformat(), messageBoxID,))
+	con.commit()
+
+	# return 200
+	return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+
 # return last 10 message boxes
 @app.route("/dashboard/", methods=['GET'])
 def last_message_boxes():
@@ -75,7 +90,6 @@ def last_message_boxes():
 	con.commit()
 
 	return(json.dumps([dict(ix) for ix in result]))
-
 
 if __name__ == '__main__':
 	# app.debug = True

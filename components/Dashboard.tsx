@@ -1,6 +1,8 @@
 import useDashboardQuery from "../hooks/useDashboardQuery";
 import DashboardItem from "../types/DashboardItem";
-import isToday from "../utils/isToday";
+
+import useCompleteTransactionMutation from "../hooks/useCompleteTransactionMutation";
+import quickTimeOrDate from "../utils/quickTimeOrDate";
 
 export interface Properties {
 	openMessageBox: (value: string) => void;
@@ -8,6 +10,7 @@ export interface Properties {
 
 export default function Dashboard(props: Properties) {
 	const { data } = useDashboardQuery();
+	const completeTransactionMutation = useCompleteTransactionMutation();
 
 	return (
 		<div className="w-screen lg:flex-grow lg:w-2/3 p-10" id="dashboard">
@@ -41,23 +44,22 @@ export default function Dashboard(props: Properties) {
 							</span>
 						</div>
 						<div className="flex flex-1">
-							{isToday(dashboardItem.date)
-								? new Date(dashboardItem.date).toLocaleTimeString([], {
-										hour: "2-digit",
-										minute: "2-digit",
-								  })
-								: new Date(dashboardItem.date).toLocaleDateString()}
+							{quickTimeOrDate(dashboardItem.date)}
 						</div>
 						<div className="flex flex-1 text-gray-600 truncate">
 							{dashboardItem.isTransactionCompleted ? (
-								<p>
-									at new
-									Date(dashboardItem.isTransactionCompleted).toLocaleString()
-								</p>
+								<p>{quickTimeOrDate(dashboardItem.isTransactionCompleted)}</p>
 							) : (
 								<>
-									<a className="hidden lg:block">Mark as completed</a>
-									<a className="lg:hidden">Mark</a>
+									<a
+										className="cursor-pointer underline"
+										onClick={() =>
+											completeTransactionMutation.mutate(dashboardItem.id)
+										}
+									>
+										<span className="hidden lg:block">Mark as completed</span>
+										<span className="lg:hidden">Mark</span>
+									</a>
 								</>
 							)}
 						</div>
