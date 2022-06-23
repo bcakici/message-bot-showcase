@@ -53,9 +53,10 @@ export default function Dashboard(props: Properties) {
 								<>
 									<a
 										className="cursor-pointer underline"
-										onClick={() =>
-											completeTransactionMutation.mutate(dashboardItem.id)
-										}
+										onClick={() => {
+											completeTransactionMutation.mutate(dashboardItem.id);
+											props.openMessageBox(dashboardItem.id);
+										}}
 									>
 										<span className="hidden lg:block">Mark as completed</span>
 										<span className="lg:hidden">Mark</span>
@@ -71,7 +72,7 @@ export default function Dashboard(props: Properties) {
 							)}
 						</div>
 						<div className="hidden lg:flex flex-1 text-gray-600">
-							Very nice.
+							{dashboardItem.transactionNote ?? ""}
 						</div>
 					</div>
 				))}

@@ -8,6 +8,7 @@ import json
 import names
 
 from process_message import process_message
+from triggers.completedtransaction.ask_for_note import ask_for_note 
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -73,8 +74,12 @@ def completeTransaction(messageBoxID):
 	cur = con.cursor()
 
 	# mark message box as completed
-	cur.execute("UPDATE messagebox SET isTransactionCompleted = ? WHERE id IS ?", (datetime.now().isoformat(), messageBoxID,))
+	cur.execute("UPDATE messagebox SET isTransactionCompleted = ? WHERE id IS ?", 
+		(datetime.now().isoformat(), messageBoxID,))
 	con.commit()
+
+	# ask customer for feedback on completed transaction
+	ask_for_note(messageBoxID)
 
 	# return 200
 	return json.dumps({'success':True}), 200, {'ContentType':'application/json'}

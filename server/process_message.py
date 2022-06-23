@@ -3,6 +3,7 @@ import time
 import sqlite3
 from triggers.thankyou.ask_for_review import ask_for_review 
 from triggers.thankyou.receive_review import receive_review 
+from triggers.completedtransaction.receive_note import receive_note 
 
 def process_message(message):
 	# if messager is not programmer exit subroutine
@@ -22,6 +23,9 @@ def process_message(message):
 		# if rule is thank you
 		if bot_conversation["rule"] == "THANK_YOU":
 			receive_review(message, bot_conversation)
+
+		elif bot_conversation["rule"] == "COMPLETED_TRANSACTION":
+			receive_note(message, bot_conversation)
 
 
 	# THANK_YOU RULE

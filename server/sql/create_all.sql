@@ -38,11 +38,24 @@ CREATE VIEW Dashboard AS WITH outOfFive AS (
 		AND processedData IS NOT NULL
 	ORDER BY
 		date DESC
+), withTransactionNotes AS (
+	SELECT
+		messageBox,
+		date,
+		processedData as transactionNote
+	FROM
+		BotConversation
+	WHERE
+		rule IS "COMPLETED_TRANSACTION"
+		AND processedData IS NOT NULL
+	ORDER BY
+		date DESC
 ), lastTenNeedsOrder AS
 (SELECT
 	*
 FROM
 	MessageBox mb
 	LEFT JOIN outOfFive oof ON mb.id = oof.messageBox
+	LEFT JOIN withTransactionNotes wtn ON mb.id = wtn.messageBox
 	ORDER BY date DESC LIMIT 10) 
 SELECT * FROM lastTenNeedsOrder ORDER BY date ASC;
