@@ -10,7 +10,7 @@ export default function Dashboard(props: Properties) {
 	const { data } = useDashboardQuery();
 
 	return (
-		<div className="w-screen lg:flex-grow lg:w-2/3 p-10">
+		<div className="w-screen lg:flex-grow lg:w-2/3 p-10" id="dashboard">
 			<h2 className="mb-10 font-thin text-xl">Last 10 Customers</h2>
 			<div className="flex flex-col gap-5">
 				<div className="flex justify-between">
